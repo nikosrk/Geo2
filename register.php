@@ -20,72 +20,29 @@ session_start();
 	<br>
 
 <?php
-include "connect.php";
-include "common.php";
+    include "models/user.php";
+    include "common.php";
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST['submit'] == 'Submit')) {
+    if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST['submit'] == 'Submit')) {
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
 
-    $fname = mysqli_real_escape_string($link, $_POST['fname']);
-    $lname = mysqli_real_escape_string($link, $_POST['lname']);
-    $username = mysqli_real_escape_string($link, $_POST['username']);
-    $password = mysqli_real_escape_string($link, md5($_POST['password']));
-    $email = mysqli_real_escape_string($link, $_POST['email']);
+        if (empty($email) || (empty($username)) || empty($password)) {
+            redirect("register.php");
+        }
 
-	if (empty($email) || (empty($username)) || empty($password)) {
-
-		echo "<center><div class='success'>";
-        echo "Πρέπει να συμπληρώσετε τα υποχρεωτικά πεδία (με τον αστερίσκο *)";
-        echo "</div></center>";
-
-
-        redirect("register.php");
+        if (register($username, $password, $fname, $lname, $email)) {
+            redirect("index.php");
+        }
+        else {
+            echo "<center><div class='fail'>";
+            echo "Εμφανίστηκε πρόβλημα στην βάση";
+            echo "</div></center>";
+        }
     }
-
-    mysqli_autocommit($link, false);
-
-    $query = "insert into users
-                            (
-                                oauth_provider,
-                                username,
-								password,
-                                first_name,
-                                last_name,
-                                email,
-                                created
-                            )
-                            Values
-                            (
-                                'original',
-                                '$username',
-								'$password',
-                                '$fname',
-                                '$lname',
-                                '$email',
-                                 now()
-                            )";
-
-
-//echo $query;
-//die;
-    $result = mysqli_query($link, $query);
-
-    if ($result) {
-        mysqli_commit($link);
-
-		echo "<center><div class='success'>";
-        echo "Τα στοιχεία σας καταχωρήθηκαν με επιτυχία";
-        echo "</div></center>";
-
-        redirect("index.php");
-    } else {
-        mysqli_rollback($link);
-
-		echo "<center><div class='fail'>";
-        echo "Εμφανίστηκε πρόβλημα στην βάση";
-        echo "</div></center>";
-
-    }
-}
 ?>
 
     <form action="register.php" method="post">
