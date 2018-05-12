@@ -5,53 +5,13 @@ session_start();
 <head>
 	<title>Register</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	
-	<style>
-		
-		body, html {
-		  height: 100%;
-		  margin: 0;
-		  font: 400 15px/1.8 "Lato", sans-serif;
-		  color: #777;
-		}
 
-		.bgimg-1 {
-		  position: relative;
-		  height: 100%;
-		  background-image: url("World_Map.jpg");
-		  background-position: center;
-		  background-repeat: no-repeat;
-		  background-size: cover;
-
-		}
-		
-		.table1 {
-			border: 0;
-			width: 225;
-			border-radius: 25px;
-			padding: 20px; 
-		}
-		
-		.round{
-			
-			border-radius: 25px;
-			border: 2px solid #73AD21;
-			padding: 5px; 
-		}
-		
-		.info{
-			
-			color:#AEFEF1;
-			font-size:12pt;
-		}
-
-	</style>
-	
+    <link rel="stylesheet" type="text/css" href="static/style/register.css">
 </head>
 
 <body>
 
-<div class="bgimg-1"> 
+<div class="bgimg-1">
 	<br>
 	<br>
 	<br>
@@ -61,6 +21,7 @@ session_start();
 
 <?php
 include "connect.php";
+include "common.php";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST['submit'] == 'Submit')) {
 
@@ -69,21 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST
     $username = mysqli_real_escape_string($link, $_POST['username']);
     $password = mysqli_real_escape_string($link, md5($_POST['password']));
     $email = mysqli_real_escape_string($link, $_POST['email']);
-	
+
 	if (empty($email) || (empty($username)) || empty($password)) {
-		
+
 		echo "<center><div class='success'>";
         echo "Πρέπει να συμπληρώσετε τα υποχρεωτικά πεδία (με τον αστερίσκο *)";
         echo "</div></center>";
-		
-		
-        header("Location: register.php");
-        exit();
+
+
+        redirect("register.php");
     }
-	
+
     mysqli_autocommit($link, false);
 
-    $query = "insert into users 
+    $query = "insert into users
                             (
                                 oauth_provider,
                                 username,
@@ -92,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST
                                 last_name,
                                 email,
                                 created
-                            ) 
+                            )
                             Values
                             (
                                 'original',
@@ -103,28 +63,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST
                                 '$email',
                                  now()
                             )";
-							
-	
+
+
 //echo $query;
 //die;
     $result = mysqli_query($link, $query);
 
     if ($result) {
         mysqli_commit($link);
-		
+
 		echo "<center><div class='success'>";
         echo "Τα στοιχεία σας καταχωρήθηκαν με επιτυχία";
         echo "</div></center>";
-		
-        header("Location: index.php");
-        exit();
+
+        redirect("index.php");
     } else {
         mysqli_rollback($link);
-		
+
 		echo "<center><div class='fail'>";
         echo "Εμφανίστηκε πρόβλημα στην βάση";
         echo "</div></center>";
-		
+
     }
 }
 ?>
@@ -162,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST
                         <tr>
                             <td width="116">&nbsp;</td>
                             <td width="156">
-                                 
+
                                 <p align="left"><input type="submit" name="submit" value="Submit"></p>
                             </td>
                         </tr>
@@ -177,5 +136,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST['submit'])) && ($_POST
 
 </div>
 </body>
-	
+
 </html>
