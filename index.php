@@ -8,9 +8,9 @@
 	<meta charset="UTF-8">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-	
+
 	<style>
-		
+
 		body, html {
 		  height: 100%;
 		  margin: 0;
@@ -27,35 +27,35 @@
 		  background-size: cover;
 
 		}
-		
+
 		.table1 {
 			border: 0;
 			width: 225;
 			border-radius: 25x;
-			padding: 20px; 
+			padding: 20px;
 		}
-		
+
 		.round{
 			border-radius: 25px;
 			border: 2px solid #73AD21;
-			padding: 5px; 
+			padding: 5px;
 		}
-		
+
 		.info{
-			
+
 			color:#AEFEF9;
 			font-size:12pt;
 		}
 
 	</style>
-	
+
 
 </head>
 
 
 <body>
-	
-	<div class="bgimg-1"> 
+
+	<div class="bgimg-1">
 	<br>
 	<br>
 	<br>
@@ -82,9 +82,9 @@
 						<td width="139"><input type="password" name="password"></td>
 					</tr>
 					<tr>
-						
-						
-						
+
+
+
 					</tr>
 					<tr>
 						<td width="71">&nbsp;</td>
@@ -95,35 +95,35 @@
 				</table>
 			</td>
 		</tr>
-		
+
 		<tr>
-			
+
 			<?php
-			
+
 				$out = '<td width="220"><span style="font-size:11pt;">';
 				if(isset($_GET['error'])){
 					if($_GET['error'] == 2){
-								
+
 						$out .= '
 								 *Please write both your username and password
 								';
 						$_GET['error'] == 0;
 					}
 					else if($_GET['error'] == 1){
-						$out .= '  
+						$out .= '
 								 *Problem with database connection
 								';
 						$_GET['error'] == 0;
 					}
 					else if($_GET['error'] == 3){
-						$out .= '  
+						$out .= '
 								 *Wrong username or password
 								';
 						$_GET['error'] == 0;
 					}
 				}
-				$out .= '</span></td>';	
-				
+				$out .= '</span></td>';
+
 				echo $out;
 			?>
 		</tr>
@@ -133,13 +133,13 @@
 	</table>
 	</form>
 
-	
+
 	<!-- Facebook login or logout button -->
-	<center><a href="javascript:void(0);" onclick="fbLogin()" id="fbLink" ><img src="fblogin.png" height="80" width="330"/></a></center>
+	<center><a href="javascript:void(0);" onclick="fbLogin()" id="fbLink" ><img src="img/fblogin.png" height="80" width="330"/></a></center>
 
 	</div>
 </body>
-	
+
 <script>
 
 window.fbAsyncInit = function() {
@@ -150,7 +150,7 @@ window.fbAsyncInit = function() {
       xfbml      : true,  // parse social plugins on this page
       version    : 'v2.8' // use graph api version 2.8
     });
-    
+
     // Check whether the user already logged in
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
@@ -188,13 +188,13 @@ function getFbUserData(){
         //document.getElementById('fbLink').setAttribute("onclick","fbLogout()");
         //document.getElementById('fbLink').innerHTML = 'Logout from Facebook';
         //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.first_name + '!';
-        
+
 		savefbUserData(response);
-		
+
 		window.location = 'https://localhost/geo/menu.php';
-		
-		
-		
+
+
+
     });
 }
 
@@ -203,8 +203,8 @@ function savefbUserData(userData){
 }
 
 
-	
-	
+
+
 </script>
-	
-	
+
+
