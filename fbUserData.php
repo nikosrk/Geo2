@@ -6,10 +6,12 @@
 
     //Convert JSON data into PHP variable
     $userData = json_decode($_POST['userData']);
+	
+	die(100);
 
     if(!empty($userData)){
         $oauth_provider = $_POST['oauth_provider'];
-        if (fbUserExists($_POST['oauth_provider'], $userData->id)) {
+        if (getFbUser($_POST['oauth_provider'], $userData->id)) {
             if (updateFbUser($_POST['oauth_provider'], $userData->first_name, $userData->last_name, $userData->id, $userData->email)) {
                 // XSS
                 $_SESSION['username'] = $userData->id;

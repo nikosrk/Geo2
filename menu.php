@@ -1,10 +1,12 @@
-<?php session_start();?>
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html lang="eng">
     <head>
         <title>Welcome</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="static/style/menu.css">
+		<script src="static/script/menu.js"></script>
     </head>
 
 
@@ -58,4 +60,4 @@
     </body>
 </html>
 
-<script src="static/script/menu.js"></script>
+

@@ -52,7 +52,7 @@ $gini = (float)$data->gini;
                                 country_name,
                                 capital_name,
                                 lat,
-                                lon,
+                                lon, 
 								area,
 								pop,
 								gdp,

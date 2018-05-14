@@ -7,6 +7,11 @@
         <title>Index</title>
         <meta charset="UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="//connect.facebook.net/en_US/all.js"></script>
+		<script src="static/script/index.js"></script>
+		<!--<script src="http://localhost/geo/static/script/index.js"></script> -->
+		
+		
         <link rel="stylesheet" type="text/css" href="static/style/index.css">
     </head>
 
@@ -76,6 +81,13 @@
                         $out .= '</span></td>';
 
                         echo $out;
+						
+						if (isset($_GET['fbid']) && isset($_GET['oauth'])) {
+							$user = getFbUser($_GET['oauth'], $_GET['fbid']);
+							if ($user) {
+								$_SESSION['username'] = $user->username;
+							} 
+						}
                     ?>
                 </tr>
                 <tr>
@@ -86,7 +98,7 @@
                         </a>
                         <font color="#29CEBE"> </font>
                         <b>
-                            <i>
+                            <i>0
                                 <font color="black"> Now!</font>
                             </i>
                         </b>
@@ -98,12 +110,25 @@
 
             <!-- Facebook login or logout button -->
             <center>
-                <a href="javascript:void(0);" onclick="fbLogin()" id="fbLink">
-                    <img src="img/fblogin.png" height="80" width="330" />
-                </a>
+				<div id="spinner"
+					style="
+						background: #4267b2;
+						border-radius: 5px;
+						color: white;
+						height: 40px;
+						text-align: center;
+						width: 250px;">
+					Loading
+					<div
+					class="fb-login-button"
+					data-max-rows="1"
+					data-size="large"
+					data-button-type="continue_with"
+					data-use-continue-as="true"
+					></div>
+				</div>
             </center>
 
         </div>
     </body>
-
-<script src="static/script/index.js"></script>
+</html>

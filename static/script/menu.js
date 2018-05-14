@@ -30,7 +30,7 @@ window.fbAsyncInit = function() {
 
 // Logout from facebook
 function fbLogout() {
-    FB.logout(function() {
+    FB.logout(function(response) {
 		window.location = 'https://localhost/geo/index.php';
     });
 }
